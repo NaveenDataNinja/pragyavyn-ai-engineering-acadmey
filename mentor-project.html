@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Build and evaluate a fictional workplace knowledge assistant with local models.">
+  <title>Workplace Assistant Project | Pragyavyn</title>
+  <link rel="icon" type="image/svg+xml" href="pragyavyn-mark.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="page-preferences.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Naveen Narasapuram's Pragyavyn home"><img class="brand-mark" src="pragyavyn-mark.svg" alt="" width="40" height="40"><span class="brand-text"><span class="brand-owner">Naveen Narasapuram</span><span class="brand-name">Pragyavyn · AI Academy</span></span></a>
+    <nav class="top-links" aria-label="Project navigation"><a href="index.html#career-paths">Back to learning paths</a></nav>
+  </header>
+  <main class="lab-page">
+    <p class="eyebrow">MENTOR-LED PROJECT · AI ENGINEER</p>
+    <h1>Build a workplace<br><span>knowledge assistant.</span></h1>
+    <p class="lab-lead">Sit beside a senior engineer: start with a real team problem, build a small retrieval-augmented assistant, inspect the evidence, and decide what must improve before a real launch.</p>
+    <div class="lab-notice"><strong>Start without setup:</strong> <a class="lab-project-link" href="labs.html">try the browser retrieval lab</a>. The project below is optional and runs on your own computer using fictional data and local models. <a class="lab-project-link" href="#project-setup">Jump to Ollama setup</a>.</div>
+
+    <section class="lab-panel" aria-labelledby="project-brief">
+      <h2 id="project-brief">01 · The team’s problem</h2>
+      <p>Imagine the fictional Northstar service desk answers the same access, password, outage and equipment questions every day. Your team asks for a small assistant that finds relevant approved notes and helps staff answer questions.</p>
+      <p><strong>Mentor’s first question:</strong> What if the assistant sounds confident but the notes do not contain the answer? A useful response must be checked against its evidence; the model should say when the evidence is insufficient.</p>
+      <div class="lesson-code"><div class="lesson-code-label">FOLLOW THE DATA</div><pre><code>Question + fictional notes
+    → local embedding model converts text into vectors
+    → cosine similarity ranks the notes
+    → the two highest-ranked notes go to a local language model
+    → model answer + retrieved notes → human evidence check</code></pre></div>
+      <p>This starter searches vectors in memory; it is <strong>not</strong> a vector database. It re-embeds the small document set for each question. No application server or user account is needed.</p>
+    </section>
+
+    <section class="lab-panel" aria-labelledby="project-setup">
+      <h2 id="project-setup">02 · Set up your local workbench</h2>
+      <p>Ollama runs models on your computer. This website cannot install, start or check it for you. The following steps are yours to run; this project uses local models and does not require an Ollama cloud account or API key.</p>
+      <div class="lab-notice"><strong>Before you begin:</strong> You need a computer with sufficient free storage and memory, plus internet access for downloads. Model sizes and requirements can change; consult the model pages below. Windows installation requires at least 4 GB for Ollama itself, plus model storage. Leave additional space and memory for the models and your operating system.</div>
+      <p><strong>Choose your operating system:</strong></p>
+      <div class="setup-options">
+        <details class="lesson-check">
+          <summary>Windows · Download and open Ollama</summary>
+          <p>Download and install from the <a class="lab-project-link" href="https://ollama.com/download">official Ollama download page</a>. Open Ollama, then open a new PowerShell or terminal window. See the <a class="lab-project-link" href="https://docs.ollama.com/windows">Windows guide</a> for requirements and support.</p>
+        </details>
+        <details class="lesson-check">
+          <summary>macOS · Download and open Ollama</summary>
+          <p>Download Ollama from the <a class="lab-project-link" href="https://ollama.com/download">official download page</a>, install and open the app, then open Terminal. See the <a class="lab-project-link" href="https://docs.ollama.com/macos">macOS guide</a> for supported versions.</p>
+        </details>
+        <details class="lesson-check">
+          <summary>Linux · Install and start Ollama</summary>
+          <p>Follow the <a class="lab-project-link" href="https://docs.ollama.com/linux">official Linux installation guide</a> for your architecture. Review installation commands before running them. Start the installed service, or run <code>ollama serve</code> in a terminal and keep it open while using the project.</p>
+        </details>
+      </div>
+      <ol class="lesson-steps">
+        <li>Install <a class="lab-project-link" href="https://www.python.org/downloads/">Python 3</a> if needed, then reopen your terminal. Run <code>python --version</code> (or <code>python3 --version</code> on some systems) and <code>ollama --version</code>. These check the commands are available, not that the model works.</li>
+        <li>Check the local service by opening <a class="lab-project-link" href="http://127.0.0.1:11434/api/tags">127.0.0.1:11434/api/tags</a> on the same computer. A JSON model list means the local API responded; an empty list is fine before downloads. If it does not respond, start Ollama. If needed, run <code>ollama serve</code> in a separate terminal; do not start a second server if one is already running.</li>
+        <li>Review the model pages and licenses, then run both pull commands below. The downloads total roughly 1.6 GB at previously published sizes, but may change. Run <code>ollama list</code> and check that both models appear.</li>
+        <li>Download <a class="lab-project-link" href="practice/mentor_assistant.py" download>mentor_assistant.py</a> and <a class="lab-project-link" href="practice/test_mentor_assistant.py" download>test_mentor_assistant.py</a> to the same folder. Open a terminal in that folder. If you already have this application folder, use its <code>practice</code> folder instead.</li>
+        <li>Run the test and project commands below. The tests use a mock service: passing them does not prove a real model works. For the project command, check that an answer and retrieved sources appear, then compare the answer with those sources.</li>
+      </ol>
+      <div class="lesson-code"><div class="lesson-code-label">TERMINAL · DOWNLOAD THE MODELS</div><pre><code>ollama pull nomic-embed-text
+ollama pull llama3.2:1b
+ollama list</code></pre></div>
+      <div class="lesson-code"><div class="lesson-code-label">TERMINAL · INSIDE THE PRACTICE FOLDER</div><pre><code>python --version
+python -m unittest -v test_mentor_assistant
+python mentor_assistant.py "How do I request workspace access?"</code></pre></div>
+      <p>On some computers use <code>python3</code> instead of <code>python</code>; on Windows, <code>py</code> may also work. No extra Python packages are needed. First model loading may take time; smaller computers can run slowly or may not have enough memory.</p>
+      <p>Model details and licenses: <a class="lab-project-link" href="https://ollama.com/library/nomic-embed-text">nomic-embed-text</a> and <a class="lab-project-link" href="https://ollama.com/library/llama3.2">Llama 3.2</a>.</p>
+      <div class="setup-options">
+        <details class="lesson-check"><summary>Ollama or Python is not recognized</summary><p>Finish the installation and open a new terminal. On Windows, try <code>py --version</code>; on macOS or Linux, try <code>python3 --version</code>. Check the relevant installation guide if the command is still missing.</p></details>
+        <details class="lesson-check"><summary>The local API cannot be reached or the port is in use</summary><p>Ensure Ollama is running on this same computer, then retry the API link. If <code>ollama serve</code> reports the address is already in use, do not start another instance; check the existing service and its configuration. This project expects <code>127.0.0.1:11434</code>.</p></details>
+        <details class="lesson-check"><summary>A model is missing, slow or cannot load</summary><p>Check <code>ollama list</code> and retry the corresponding pull if needed. Check disk space, available memory and the model documentation. Downloads need internet, and local inference may be slow or exceed your computer's resources.</p></details>
+      </div>
+    </section>
+
+    <section class="lab-panel" aria-labelledby="project-review">
+      <h2 id="project-review">03 · Review like an engineer</h2>
+      <ol class="lesson-steps">
+        <li>For the access question, inspect whether the <code>[access]</code> passage appears and supports each part of the answer. Record any missing or invented detail.</li>
+        <li>Ask <code>Where is the cafeteria?</code> No supplied note answers it. Observe whether the model admits the evidence is missing; a small model may still invent an answer.</li>
+        <li>Ask a paraphrase such as <code>Who approves my workspace permission?</code> Compare the top source with the first question. An embedding is a representation, not a guarantee of correct retrieval.</li>
+        <li>Run the tests and change a fictional passage. Predict how this might affect retrieval, then run your questions again and record what actually happened.</li>
+      </ol>
+      <details class="lesson-check"><summary>Why does the program still show sources for an unsupported question?</summary><p>Nearest-neighbor ranking always finds the closest available notes, even if none answer the question. A high score is not proof; a human must inspect the evidence and evaluate the response.</p></details>
+      <details class="lesson-check"><summary>What is the difference between the two models?</summary><p><code>nomic-embed-text</code> converts the question and notes into vectors for ranking. <code>llama3.2:1b</code> generates an answer from the retrieved notes. Neither automatically verifies the answer.</p></details>
+    </section>
+
+    <section class="lab-panel" aria-labelledby="project-handoff">
+      <h2 id="project-handoff">04 · Your project handoff</h2>
+      <p>Make a small table with each question, expected source or “no answer,” retrieved sources, model response, and whether the response is supported. Include both ordinary and misleading questions. Share your observations, not a claim that the assistant is production-ready.</p>
+      <p><strong>Before a real deployment:</strong> add authorization, data governance, prompt-injection defenses, systematic retrieval and answer evaluations, citation verification, monitoring, privacy controls and a deployment review. This prototype does not implement these controls.</p>
+      <p><strong>Privacy:</strong> use only the included fictional notes and non-sensitive questions. The Python program sends them to Ollama on <code>127.0.0.1</code>; it does not call a cloud model or save questions. Ollama’s own configuration and logs are separate.</p>
+      <p><a class="lab-project-link" href="practice.html">Return to the no-model Python retrieval baseline</a></p>
+    </section>
+  </main>
+  <footer class="footer"><span>Pragyavyn · Build, inspect, explain.</span><a href="index.html">Return to the roadmap</a></footer>
+</body>
+</html>

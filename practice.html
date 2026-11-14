@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Run and extend a local Python retrieval baseline.">
+  <title>Local Project | Pragyavyn</title>
+  <link rel="icon" type="image/svg+xml" href="pragyavyn-mark.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="page-preferences.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Naveen Narasapuram's Pragyavyn home"><img class="brand-mark" src="pragyavyn-mark.svg" alt="" width="40" height="40"><span class="brand-text"><span class="brand-owner">Naveen Narasapuram</span><span class="brand-name">Pragyavyn · AI Academy</span></span></a>
+    <nav class="top-links" aria-label="Project navigation"><a href="index.html#career-paths">Back to learning paths</a></nav>
+  </header>
+  <main class="lab-page">
+    <p class="eyebrow">LOCAL PROJECT · PYTHON STANDARD LIBRARY</p>
+    <h1>Build a retrieval<br><span>baseline.</span></h1>
+    <p class="lab-lead">Practice searching fictional documents, inspecting evidence and writing tests. This project runs on your computer, not inside the website.</p>
+    <div class="lab-notice"><strong>Scope:</strong> word-count cosine similarity over three fictional passages. This is not a trained embedding model, vector database, chatbot or complete RAG system.</div>
+    <section class="lab-panel" aria-labelledby="project-setup">
+      <h2 id="project-setup">Run the project</h2>
+      <ol class="lesson-steps">
+        <li>Install Python 3 if needed. No extra Python packages or accounts are required.</li>
+        <li>Download <a class="lab-project-link" href="practice/retrieval_lab.py" download>retrieval_lab.py</a> and <a class="lab-project-link" href="practice/test_retrieval_lab.py" download>test_retrieval_lab.py</a> into the same folder.</li>
+        <li>Open a terminal in that folder and run the commands below. On some systems use python3 instead of python.</li>
+      </ol>
+      <div class="lesson-code"><div class="lesson-code-label">TERMINAL · RUN LOCALLY</div><pre><code>python retrieval_lab.py "How do I reset my password?"
+python retrieval_lab.py "Where is the cafeteria?"
+python -m unittest -v test_retrieval_lab</code></pre></div>
+      <p>The first question should find the Account guide. The second should report no matching evidence. Never invent an answer from a missing source.</p>
+    </section>
+    <section class="lab-panel" aria-labelledby="project-assignment">
+      <h2 id="project-assignment">Your engineering assignment</h2>
+      <ol class="lesson-steps">
+        <li>Add a fictional passage with a unique source ID. Use only data you have permission to process.</li>
+        <li>Add a supported and an unsupported test question. Run the tests and explain any failure.</li>
+        <li>Find an irrelevant passage with overlapping words. Explain why similarity does not prove a claim.</li>
+        <li>Sketch where access control, embeddings, a vector index, generation, citations, evaluation and monitoring would fit. These components are not implemented here.</li>
+      </ol>
+      <p><a class="lab-project-link" href="labs.html">Try the browser retrieval lab first</a></p>
+      <p>Ready to use real local models? <a class="lab-project-link" href="mentor-project.html">Build the mentor-led workplace assistant</a>.</p>
+    </section>
+  </main>
+  <footer class="footer"><span>Pragyavyn · Practice with evidence.</span><a href="index.html">Return to the roadmap</a></footer>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A local browser lab for exploring retrieval and evidence.">
+  <title>Retrieval Lab | Pragyavyn</title>
+  <link rel="icon" type="image/svg+xml" href="pragyavyn-mark.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="page-preferences.js" defer></script>
+  <script src="labs.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Naveen Narasapuram's Pragyavyn home"><img class="brand-mark" src="pragyavyn-mark.svg" alt="" width="40" height="40"><span class="brand-text"><span class="brand-owner">Naveen Narasapuram</span><span class="brand-name">Pragyavyn · AI Academy</span></span></a>
+    <nav class="top-links" aria-label="Lab navigation"><a href="index.html#career-paths">Back to learning paths</a></nav>
+  </header>
+  <main class="lab-page">
+    <p class="eyebrow">BROWSER PRACTICE · NO ACCOUNT</p>
+    <h1>Find evidence.<br><span>Then decide.</span></h1>
+    <p class="lab-lead">Act as a retrieval engineer. Ask a question, inspect the ranked fictional passages, and decide whether the evidence is enough to answer.</p>
+    <div class="lab-notice"><strong>What this is:</strong> a local, word-count cosine similarity demonstration. It is not a trained embedding model, vector database, chatbot or live RAG system. No question is sent to a server.</div>
+    <section class="lab-panel" aria-labelledby="retrieval-heading">
+      <h2 id="retrieval-heading">Your retrieval workbench</h2>
+      <p>Try “How do I reset my password?” and then “Where is the cafeteria?” The second question has no supporting passage.</p>
+      <form id="retrieval-form">
+        <label for="retrieval-query">Your question</label>
+        <div class="lab-input-row"><input id="retrieval-query" name="query" type="text" maxlength="200" required placeholder="Ask about password, refunds or shipping"><button class="primary-button" type="submit">Find passages</button></div>
+      </form>
+      <div id="lab-results" class="lab-results" aria-live="polite"></div>
+    </section>
+    <section class="lab-panel" aria-labelledby="lab-think">
+      <h2 id="lab-think">Think like an engineer</h2>
+      <ol class="lesson-steps">
+        <li>Identify the query words that overlap with each passage. The score compares word-count vectors, not meanings.</li>
+        <li>Read the source before answering. A matching word alone does not establish that the answer is supported.</li>
+        <li>If no passage answers the question, abstain. A real system also needs access controls, evaluation and citation checks.</li>
+      </ol>
+      <p>Try the <a class="lab-project-link" href="practice.html">local Python project instructions</a>. It uses synthetic data and runs without model downloads. For an optional real-model project, <a class="lab-project-link" href="mentor-project.html">build the workplace assistant</a>.</p>
+      <details class="lesson-check"><summary>Does a high similarity score guarantee a correct answer?</summary><p>No. It ranks candidates based on this simple calculation. Inspect the passage and evaluate the full system.</p></details>
+    </section>
+  </main>
+  <footer class="footer"><span>Pragyavyn · Practice with evidence.</span><a href="index.html">Return to the roadmap</a></footer>
+</body>
+</html>
