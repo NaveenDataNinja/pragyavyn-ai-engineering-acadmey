@@ -1249,3 +1249,31 @@ html[data-theme="dark"] .brand-name { color: #dcc3f4; }
   .topbar .brand-owner { font-size: 11px; letter-spacing: -.35px; }
   .topbar .brand-name { font-size: 9px; }
 }
+
+.projects-section { padding: 18px 0 80px; scroll-margin-top: 85px; }
+.project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: start; }
+.project-card { min-width: 0; border: 1px solid rgba(164, 139, 196, .22); border-radius: 18px; background: rgba(255, 255, 255, .8); box-shadow: var(--glass-shadow); }
+.project-card summary { display: grid; gap: 8px; padding: 22px; cursor: pointer; list-style: none; }
+.project-card summary::-webkit-details-marker { display: none; }
+.project-card summary::after { content: "+ Open project"; color: #624581; font-size: 12px; font-weight: 700; }
+.project-card[open] summary::after { content: "− Close project"; }
+.project-card summary:focus-visible { outline: 2px solid var(--green); outline-offset: -4px; border-radius: 18px; }
+.project-card summary strong { color: #2f2443; font: 700 17px var(--display); }
+.project-card summary > span:last-of-type { color: #665c72; font-size: 12px; }
+.project-number { color: #70508f; font: 500 10px var(--mono); letter-spacing: 1px; }
+.project-body { padding: 0 22px 22px; color: #4e485b; font-size: 13px; line-height: 1.7; }
+.project-body ol { padding-left: 20px; }
+.project-body li { margin-bottom: 8px; }
+.project-body a { color: #624581; text-decoration: underline; }
+.project-body code { overflow-wrap: anywhere; }
+.project-code { overflow-x: auto; margin: 14px 0; padding: 14px; border-radius: 10px; background: #282237; color: #f5eefb; font: 12px/1.6 var(--mono); white-space: pre; }
+.project-code code { overflow-wrap: normal; }
+html[data-theme="dark"] .project-card { background: #292235; border-color: #51425f; }
+html[data-theme="dark"] .project-card summary strong { color: #f0eaf6; }
+html[data-theme="dark"] .project-card summary > span:last-of-type, html[data-theme="dark"] .project-body { color: #d3c7dd; }
+html[data-theme="dark"] .project-number, html[data-theme="dark"] .project-card summary::after,
+html[data-theme="dark"] .project-body a { color: #d1afea; }
+@media (max-width: 760px) {
+  .project-grid { grid-template-columns: minmax(0, 1fr); }
+  .projects-section { padding-bottom: 55px; }
+}

@@ -80,7 +80,7 @@
       <p class="career-intro">Start with shared skills, then follow a role-focused route. Switch anytime: overlapping lessons keep the same progress.</p>
       <div class="career-options" id="career-options" aria-label="Choose a career path"></div>
       <div class="career-summary" id="career-summary" aria-live="polite"></div>
-      <div class="practice-links"><a href="labs.html">Open browser retrieval lab <span aria-hidden="true">↗</span></a><a href="practice.html">Local Python retrieval baseline <span aria-hidden="true">↗</span></a><a href="mentor-project.html">Build the workplace AI assistant <span aria-hidden="true">↗</span></a><a href="mentor-project.html#project-setup">Install and enable Ollama <span aria-hidden="true">↗</span></a></div>
+      <div class="practice-links"><a href="#projects">Explore guided project starters <span aria-hidden="true">↓</span></a><a href="labs.html">Open browser retrieval lab <span aria-hidden="true">↗</span></a><a href="practice.html">Local Python retrieval baseline <span aria-hidden="true">↗</span></a><a href="mentor-project.html">Build the workplace AI assistant <span aria-hidden="true">↗</span></a><a href="mentor-project.html#project-setup">Install and enable Ollama <span aria-hidden="true">↗</span></a></div>
       <p class="career-note">Projects build practical skills; they do not replace employment experience or guarantee a job. Local tools and optional model downloads are separate from this website.</p>
       <details class="lesson-check career-readiness">
         <summary>Engineering readiness · what you can practice and what comes next</summary>
@@ -127,6 +127,134 @@
       </div>
       <div class="track-list" id="track-list"></div>
       <p class="no-results" id="no-results" hidden>No modules found. Try a different topic or track.</p>
+    </section>
+
+    <section class="projects-section" id="projects" aria-labelledby="projects-title">
+      <div class="roadmap-heading">
+        <div><p class="eyebrow">THE PRAGYAVYN PROJECT STUDIO</p><h2 id="projects-title">Learn it. Build it. Explain it.</h2></div>
+        <p>Five guided briefs turn the lessons into portfolio practice. Work in order or choose a project after its prerequisites.</p>
+      </div>
+      <div class="project-grid">
+        <details class="project-card">
+          <summary><span class="project-number">01 / PYTHON</span><strong>Build a study planner</strong><span>Variables, collections, files and testing</span></summary>
+          <div class="project-body">
+            <p><strong>Goal:</strong> Create a command-line planner that records tasks and reports what remains.</p>
+            <p><strong>Start:</strong> Complete Python foundations. Install Python and create a folder for this project; the website does not run your code.</p>
+            <ol><li>Represent each task with a title, estimated minutes and completion status. Start with three fictional tasks.</li><li>Write functions to add a task, mark one done and list remaining tasks. Keep the menu separate from these functions.</li><li>Save and load tasks as JSON with the Python standard library. Handle a missing file as a new planner and show an error for invalid data.</li><li>Add tests using <code>unittest</code>. Run them and explain any failure before changing the code.</li></ol>
+            <p><strong>Starter:</strong> Save this as <code>planner.py</code>, then run <code>python planner.py</code>. Extend it with a menu and JSON persistence.</p>
+            <pre class="project-code"><code>def add_task(tasks, title, minutes):
+    if not title.strip() or minutes &lt;= 0:
+        raise ValueError("Provide a title and positive minutes")
+    tasks.append({"title": title, "minutes": minutes, "done": False})
+
+def remaining(tasks):
+    return sum(1 for task in tasks if not task["done"])
+
+if __name__ == "__main__":
+    tasks = []
+    add_task(tasks, "Practice Python", 30)
+    add_task(tasks, "Review SQL", 20)
+    tasks[0]["done"] = True
+    print(f"Tasks remaining: {remaining(tasks)}")  # 1</code></pre>
+            <p><strong>Check:</strong> An empty task list has zero remaining tasks; completing a task changes the count; saved tasks survive a restart; an invalid index does not change a task.</p>
+            <p><strong>Deliver:</strong> Your source, tests and a README with setup steps, example output and one limitation.</p>
+          </div>
+        </details>
+        <details class="project-card">
+          <summary><span class="project-number">02 / SQL &amp; DATA</span><strong>Explore a learning dataset</strong><span>Tables, joins and clear questions</span></summary>
+          <div class="project-body">
+            <p><strong>Goal:</strong> Use SQLite to answer questions about fictional learners and course enrollments.</p>
+            <p><strong>Start:</strong> Complete the SQL track. Python includes SQLite through <code>sqlite3</code>; use synthetic names only.</p>
+            <ol><li>Create <code>learners(id, name)</code>, <code>courses(id, title)</code> and <code>enrollments(learner_id, course_id, completed)</code> tables. Define primary and foreign keys.</li><li>Insert at least three learners, two courses and four enrollments. Include a learner with no enrollment.</li><li>Use joins to list enrollments and a left join to retain learners with no course. Calculate course enrollment and completion counts.</li><li>Use placeholders for user-supplied values, then write down what the numbers cannot tell you.</li></ol>
+            <p><strong>Starter:</strong> Run these statements in a SQLite tool or through Python's <code>sqlite3</code>. Add the courses table, constraints and more rows next.</p>
+            <pre class="project-code"><code>CREATE TABLE learners (id INTEGER PRIMARY KEY, name TEXT NOT NULL);
+CREATE TABLE enrollments (learner_id INTEGER, course TEXT);
+INSERT INTO learners VALUES (1, 'Asha'), (2, 'Ben');
+INSERT INTO enrollments VALUES (1, 'Python');
+SELECT learners.name, COUNT(enrollments.course) AS course_count
+FROM learners LEFT JOIN enrollments
+  ON learners.id = enrollments.learner_id
+GROUP BY learners.id, learners.name
+ORDER BY learners.id;
+-- Expected: Asha | 1, Ben | 0</code></pre>
+            <p><strong>Check:</strong> A learner with no course still appears in the left join; an empty course has a count of zero; duplicate or invalid keys are rejected when foreign keys are enabled.</p>
+            <p><strong>Deliver:</strong> A reproducible setup script, three queries, expected results and a short findings note.</p>
+          </div>
+        </details>
+        <details class="project-card">
+          <summary><span class="project-number">03 / MACHINE LEARNING</span><strong>Compare a prediction baseline</strong><span>Splits, metrics and honest evaluation</span></summary>
+          <div class="project-body">
+            <p><strong>Goal:</strong> Compare a simple classifier with a baseline on a public, non-sensitive dataset.</p>
+            <p><strong>Start:</strong> Complete the machine learning track. This optional project needs Python, scikit-learn and its dependencies installed separately.</p>
+            <ol><li>Load scikit-learn's built-in Iris dataset and describe the features and labels.</li><li>Make a reproducible train/test split before fitting anything. Keep the test data untouched until evaluation.</li><li>Fit a <code>DummyClassifier</code> and a logistic-regression pipeline with scaling. Fit preprocessing on the training data only.</li><li>Report accuracy and a confusion matrix for both models. Inspect mistakes and explain the small dataset's limits.</li></ol>
+            <p><strong>Starter:</strong> After installing scikit-learn in your own Python environment, save and run this script. Add a confusion matrix and error review.</p>
+            <pre class="project-code"><code>from sklearn.datasets import load_iris
+from sklearn.dummy import DummyClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42, stratify=y
+)
+models = {
+    "baseline": DummyClassifier(strategy="most_frequent"),
+    "logistic": make_pipeline(StandardScaler(), LogisticRegression()),
+}
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    print(name, "accuracy:", round(model.score(X_test, y_test), 3))</code></pre>
+            <p><strong>Check:</strong> Both models use the same test split; the baseline is reported; changing a test label never changes the trained model; the evaluation is reproducible with a fixed seed.</p>
+            <p><strong>Deliver:</strong> A script or notebook, instructions, results and an explanation of leakage and limitations.</p>
+          </div>
+        </details>
+        <details class="project-card">
+          <summary><span class="project-number">04 / GENERATIVE AI &amp; AGENTS</span><strong>Design a grounded notes assistant</strong><span>Retrieval, evidence and safe workflows</span></summary>
+          <div class="project-body">
+            <p><strong>Goal:</strong> Build a small retrieval prototype over fictional notes, then design a safe agent workflow around it.</p>
+            <p><strong>Start:</strong> Complete the generative AI track. Begin without an external model, account or sensitive data.</p>
+            <ol><li>Write five short fictional notes with unique IDs. Normalize text and compare query words with each note.</li><li>Return the highest-overlap notes with their IDs. If no words overlap, return “no supporting note” instead of inventing an answer.</li><li>Make an evaluation set with at least five questions, expected note IDs and one unanswerable question. Record missed retrievals.</li><li>Draw an agent loop: request, permitted retrieval tool, evidence review and answer. Require human approval before any action that changes data; treat retrieved text as untrusted input.</li></ol>
+            <p><strong>Starter:</strong> Run this local Python example, then add notes, evaluation cases and a better tokenizer. It retrieves notes; it does not generate an answer.</p>
+            <pre class="project-code"><code>import re
+
+notes = {"n1": "Python uses indentation", "n2": "SQL joins tables"}
+
+def words(text):
+    return set(re.findall(r"[a-z0-9]+", text.lower()))
+
+def retrieve(query):
+    query_words = words(query)
+    matches = [(len(query_words &amp; words(text)), note_id)
+               for note_id, text in notes.items()]
+    return [note_id for score, note_id in sorted(matches, reverse=True)
+            if score &gt; 0]
+
+print(retrieve("python indentation"))  # ['n1']
+print(retrieve("weather"))             # []</code></pre>
+            <p><strong>Check:</strong> An empty or unrelated query returns no supporting note; every returned note has an ID; the evaluation reports failures. Word matching is not semantic search and the design is not a running agent.</p>
+            <p><strong>Deliver:</strong> Code, fictional notes, evaluation cases, results and a diagram of the proposed workflow. For an existing implementation, try the <a href="practice.html">local retrieval baseline</a> and its tests.</p>
+          </div>
+        </details>
+        <details class="project-card">
+          <summary><span class="project-number">05 / CAREER</span><strong>Present your work responsibly</strong><span>Portfolio, reflection and communication</span></summary>
+          <div class="project-body">
+            <p><strong>Goal:</strong> Turn one completed project into a clear, verifiable portfolio entry.</p>
+            <ol><li>State the problem, intended user and success criterion. Separate the original goal from what actually works.</li><li>Show the architecture, setup, example input and output, tests and evaluation results. Link to code you are allowed to share.</li><li>Document privacy, limitations, failures and the next improvement. Remove personal data and secrets.</li><li>Prepare a two-minute explanation and answer: “What would you change if this had real users?”</li></ol>
+            <p><strong>Starter outline:</strong> Fill each line with evidence from a project you actually built.</p>
+            <pre class="project-code"><code>Problem and intended user:
+What I built:
+How to run it:
+Example input and observed output:
+Tests and evaluation results:
+Limitations and privacy considerations:
+Next improvement:</code></pre>
+            <p><strong>Check:</strong> A new reader can run the project from the README; claims match the observed results; the README distinguishes implemented functionality from future ideas.</p>
+            <p><strong>Deliver:</strong> A repository, a short write-up and a demo using fictional data.</p>
+          </div>
+        </details>
+      </div>
     </section>
 
     <section class="schedule-section" id="how-it-works">

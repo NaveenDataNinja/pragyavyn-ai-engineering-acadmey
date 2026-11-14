@@ -18,6 +18,7 @@ Lessons include illustrated walkthroughs of fictional scenarios. The embeddings 
 
 ## Practice
 
+- Explore the five guided project starters on the home page: a Python study planner, a SQLite dataset, an ML baseline, a grounded notes retrieval prototype and a portfolio write-up. Each includes steps, checks and a starter example. These are assignments to build locally, not completed applications or code executed by the website; the ML example needs scikit-learn installed separately.
 - Open `labs.html` or select **Open browser retrieval lab** for an offline word-count similarity exercise. It does not call a model or external service.
 - Open `practice.html` or follow [the practice guide](practice/README.md) to run a Python standard-library retrieval project and its tests locally. It uses fictional data. It is not a vector database, chatbot or complete RAG system.
 - Open `mentor-project.html` for a mentor-led fictional workplace assistant using Ollama embeddings and generation. Its setup guide links to official Windows, macOS and Linux installation instructions, local-service checks, model downloads and troubleshooting. It needs Python, Ollama and separately downloaded local models; it ranks vectors in memory and is not production-ready. No model is run by the static website itself; its Python tests use a mock Ollama service and do not verify a real-model run.
